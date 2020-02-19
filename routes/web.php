@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'Visitors\PagesController@home')->name('visitors.home');
+
+
+Route::prefix('admin')->group(function () {
+   Route::get('/', 'Admin\AdminController@home')->name('admin.home');
+
+   Route::get('groupes', 'Admin\GroupController@index')->name('groups.index');
+   Route::get('groupes/create', 'Admin\GroupController@create')->name('groups.create');
+   Route::post('groupes', 'Admin\GroupController@store')->name('groups.store');
 });

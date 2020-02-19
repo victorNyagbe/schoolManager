@@ -27,28 +27,59 @@
         <section class="content">
             <div class="row">
                 <div class="col-12">
+
+                    @if($message = Session::get('success'))
+                        <div class="alert alert-success alert-dismissible fade show my-4" role="alert">
+                            {{ $message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Groupes</h3>
+                            <h3 class="card-title">
+                                Groupes
+                            </h3>
+                            <a href="{{ route('groups.create') }}" class="btn btn-primary float-right btn-sm"><i class="fas fa-plus"></i> Ajouter</a>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="example2" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th>Code</th>
                                     <th>Description</th>
-                                    <th colspan="3">Action</th>
+                                    <th colspan="3" class="text-center">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-
+                                    @forelse($groups as $group)
+                                        <tr>
+                                            <td>{{ $group->code }}</td>
+                                            <td>{{ $group->description }}</td>
+                                            <td width="100">
+                                                <form action="{{ route('groups.delete', $group) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <div class="btn-group">
+                                                        <a href="{{ route('groups.show', $group) }}" class="btn btn-success btn-sm"><i class="fas fa-eye"></i></a>
+                                                        <a href="{{ route('groups.edit', $group) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Voulez vous vraiment supprimer le groupe {{ $group->code }} ?')"><i class="fas fa-trash"></i></button>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        Aucun enregistrement n'a été effectué
+                                    @endforelse
                                 </tbody>
                                 <tfoot>
                                 <tr>
                                     <th>Code</th>
                                     <th>Description</th>
-                                    <th colspan="3">Action</th>
+                                    <th colspan="3" class="text-center">Action</th>
                                 </tr>
                                 </tfoot>
                             </table>
@@ -70,7 +101,7 @@
             $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": false,
-                /*"searching": false,*/
+                "searching": false,
                 "ordering": true,
                 "info": true,
                 "autoWidth": false,

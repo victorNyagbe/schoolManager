@@ -11,12 +11,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Tableau de bord</h1>
+                        <h1 class="m-0 text-dark">Groupes</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Accueil</a></li>
-                            <li class="breadcrumb-item active">Groupes</li>
+                            <li class="breadcrumb-item"><a href="{{ route('groups.index') }}">Groupes</a></li>
+                            <li class="breadcrumb-item active">Create</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -28,6 +29,18 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
+
+                        @if($errors->any())
+                            <ul class="alert alert-danger list-unstyled alert-dismissible fade show" role="alert">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                                <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </ul>
+                        @endif
+
                         <!-- jquery validation -->
                         <div class="card card-primary">
                             <div class="card-header">
@@ -35,15 +48,16 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form role="form" id="quickForm" action="" method="post">
+                            <form role="form" id="quickForm" action="{{ route('groups.store') }}" method="post">
+                                @csrf
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="code">Code</label>
-                                        <input type="text" name="code" class="form-control" id="code" placeholder="Entrer le code du groupe..">
+                                        <input type="text" name="code" class="form-control" id="code" value="{{ old('code') }}" placeholder="Entrer le code du groupe..">
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description</label>
-                                        <input type="text" name="description" class="form-control" id="description" placeholder="description du groupe...">
+                                        <input type="text" name="description" class="form-control" id="description" value="{{ old('description') }}" placeholder="description du groupe...">
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
@@ -62,21 +76,21 @@
                     <!--/.col (right) -->
                     </div>
                 </div>
-            </div>
         </section>
     </div>
 @endsection
 
 @section('script')
+    <!-- jquery-validation -->
     <script src="{{ URL::asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ URL::asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $.validator.setDefaults({
+            /*$.validator.setDefaults({
                 submitHandler: function () {
                     alert( "Groupe enregistré avec succès" );
                 }
-            });
+            });*/
             $('#quickForm').validate({
                 rules: {
                     code: {

@@ -20,4 +20,8 @@ Route::prefix('admin')->group(function () {
    Route::get('groupes', 'Admin\GroupController@index')->name('groups.index');
    Route::get('groupes/create', 'Admin\GroupController@create')->name('groups.create');
    Route::post('groupes', 'Admin\GroupController@store')->name('groups.store');
+   Route::get('groupes/{group}', 'Admin\GroupController@show')->name('groups.show');
+   Route::get('groupes/{group}/edit', 'Admin\GroupController@edit')->name('groups.edit');
+   Route::patch('groupes/{group}', 'Admin\GroupController@update')->name('groups.update');
+   Route::delete('groupes/{group}/delete', 'Admin\GroupController@destroy')->name('groups.delete');
 });

@@ -31,6 +31,7 @@
     <!-- Section -->
         @yield('index')
         @yield('groups')
+        @yield('teachers')
     <!-- /. Section -->
 
     <!-- footer -->

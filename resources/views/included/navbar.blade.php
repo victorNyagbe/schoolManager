@@ -7,16 +7,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#"><i class="fa fa-home"></i> Accueil <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ route('visitors.home') }}"><i class="fa fa-home"></i> Accueil <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link"><i class="fa fa-users"></i> Enseignants</a>
+                <a href="{{ route('visitors.teachers') }}" class="nav-link"><i class="fa fa-users"></i> Enseignants</a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link"><i class="fa fa-money"></i> Finances</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link"><i class="fa fa-object-group"></i> Groupes</a>
+                <a href="{{ route('visitors.groups') }}" class="nav-link"><i class="fa fa-object-group"></i> Groupes</a>
             </li>
             {{--<li class="nav-item">
                 <a class="nav-link" href="#"><i class="fa fa-sticky-note"></i> Renseignements</a>
